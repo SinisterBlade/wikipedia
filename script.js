@@ -18,7 +18,7 @@ function getSearchData(query) {
 
 function LinkPanel(props) {
     return (
-        <div className="panel panel-info" onClick={() => window.open('https://en.wikipedia.org/wiki/' + props.title)}>
+        <div className="panel panel-info" style={{cursor:"pointer"}} onClick={() => window.open('https://en.wikipedia.org/wiki/' + props.title)}>
             <div className="panel-heading">{props.title}</div>
             <div className="panel-body" dangerouslySetInnerHTML={{__html:props.body}}></div>
         </div>

@@ -29,7 +29,7 @@ function getSearchData(query) {
 function LinkPanel(props) {
     return React.createElement(
         "div",
-        { className: "panel panel-info", onClick: function onClick() {
+        { className: "panel panel-info", style: { cursor: "pointer" }, onClick: function onClick() {
                 return window.open('https://en.wikipedia.org/wiki/' + props.title);
             } },
         React.createElement(
