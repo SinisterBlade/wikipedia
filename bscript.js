@@ -9,80 +9,110 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function getSearchData(query) {
-  console.log('Searching');
-  $.ajax({
-    url: "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&titles=Main+Page&srsearch=" + query,
-    type: "GET",
-    dataType: "jsonp",
-    success: function success(data) {
-      console.log('success');
-    },
-    error: function error(err) {
-      console.log('Error');
-    }
-  });
+    return new Promise(function (resolve, reject) {
+        console.log('Searching');
+        $.ajax({
+            url: "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&titles=Main+Page&srsearch=" + query,
+            type: "GET",
+            dataType: "jsonp",
+            success: function success(data) {
+                console.log('Success');
+                resolve(data.query.search);
+            },
+            error: function error(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
+function LinkPanel(props) {
+    return React.createElement(
+        "div",
+        { className: "panel panel-info", onClick: function onClick() {
+                return window.open('https://en.wikipedia.org/wiki/' + props.title);
+            } },
+        React.createElement(
+            "div",
+            { className: "panel-heading" },
+            props.title
+        ),
+        React.createElement("div", { className: "panel-body", dangerouslySetInnerHTML: { __html: props.body } })
+    );
 }
 
 function RandomWiki(props) {
-  return React.createElement(
-    "button",
-    { onClick: function onClick() {
-        return window.open('https://en.wikipedia.org/wiki/Special:Random');
-      }, className: "btn" },
-    props.text
-  );
+    return React.createElement(
+        "button",
+        { onClick: function onClick() {
+                return window.open('https://en.wikipedia.org/wiki/Special:Random');
+            }, className: "btn" },
+        props.text
+    );
 }
 
 var WikiForm = function (_React$Component) {
-  _inherits(WikiForm, _React$Component);
+    _inherits(WikiForm, _React$Component);
 
-  function WikiForm(props) {
-    _classCallCheck(this, WikiForm);
+    function WikiForm(props) {
+        _classCallCheck(this, WikiForm);
 
-    var _this = _possibleConstructorReturn(this, (WikiForm.__proto__ || Object.getPrototypeOf(WikiForm)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (WikiForm.__proto__ || Object.getPrototypeOf(WikiForm)).call(this, props));
 
-    _this.state = { query: '' };
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleInput = _this.handleInput.bind(_this);
-    return _this;
-  }
-
-  _createClass(WikiForm, [{
-    key: "handleSubmit",
-    value: function handleSubmit(event) {
-      getSearchData(this.state.query);
-      //window.open('http://www.google.com/search?q=' + this.state.query)
-      event.preventDefault();
+        _this.state = { query: '' };
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleInput = _this.handleInput.bind(_this);
+        return _this;
     }
-  }, {
-    key: "handleInput",
-    value: function handleInput(event) {
-      this.setState({ query: event.target.value });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "form",
-        { onSubmit: this.handleSubmit, className: "form-inline" },
-        React.createElement("input", { className: "form-control", type: "text", onChange: this.handleInput }),
-        React.createElement(
-          "button",
-          { className: "btn", type: "submit", onClick: this.handleSubmit },
-          "Search"
-        )
-      );
-    }
-  }]);
 
-  return WikiForm;
+    _createClass(WikiForm, [{
+        key: "handleSubmit",
+        value: function handleSubmit(event) {
+            getSearchData(this.state.query).then(function (data) {
+                console.log('Success 2');
+                var linkPanels = data.map(function (element, index) {
+                    return React.createElement(LinkPanel, { key: index, title: element.title, body: element.snippet });
+                });
+                ReactDOM.render(React.createElement(
+                    "div",
+                    null,
+                    linkPanels
+                ), document.getElementById('root'));
+            }).catch(function (error) {
+                console.log(error);
+            });
+            //window.open('http://www.google.com/search?q=' + this.state.query)
+            event.preventDefault();
+        }
+    }, {
+        key: "handleInput",
+        value: function handleInput(event) {
+            this.setState({ query: event.target.value });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "form",
+                { onSubmit: this.handleSubmit, className: "form-inline" },
+                React.createElement("input", { className: "form-control", type: "text", onChange: this.handleInput }),
+                React.createElement(
+                    "button",
+                    { className: "btn", type: "submit", onClick: this.handleSubmit },
+                    "Search"
+                )
+            );
+        }
+    }]);
+
+    return WikiForm;
 }(React.Component);
 
 var element = React.createElement(
-  "div",
-  null,
-  React.createElement(RandomWiki, { text: "Click here for a random Wikipedia article" }),
-  React.createElement(WikiForm, null)
+    "div",
+    null,
+    React.createElement(RandomWiki, { text: "Click here for a random Wikipedia article" }),
+    React.createElement(WikiForm, null)
 );
 
 ReactDOM.render(element, document.getElementById('root'));

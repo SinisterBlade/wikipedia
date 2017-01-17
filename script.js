@@ -1,16 +1,28 @@
 function getSearchData(query) {
-    console.log('Searching')
-    $.ajax({
-        url: "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&titles=Main+Page&srsearch=" + query,
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            console.log('success')
-        },
-        error: function (err) {
-            console.log('Error')
-        }
+    return new Promise(function (resolve, reject) {
+        console.log('Searching')
+        $.ajax({
+            url: "https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&titles=Main+Page&srsearch=" + query,
+            type: "GET",
+            dataType: "jsonp",
+            success: function (data) {
+                console.log('Success')
+                resolve(data.query.search)
+            },
+            error: function (err) {
+                reject(err)
+            }
+        })
     })
+}
+
+function LinkPanel(props) {
+    return (
+        <div className="panel panel-info" onClick={() => window.open('https://en.wikipedia.org/wiki/' + props.title)}>
+            <div className="panel-heading">{props.title}</div>
+            <div className="panel-body" dangerouslySetInnerHTML={{__html:props.body}}></div>
+        </div>
+    )
 }
 
 function RandomWiki(props) {
@@ -28,6 +40,17 @@ class WikiForm extends React.Component {
     }
     handleSubmit(event) {
         getSearchData(this.state.query)
+        .then(function(data) {
+            console.log('Success 2')
+            let linkPanels = data.map(function(element, index) {
+                return (
+                    <LinkPanel key={index} title={element.title} body={element.snippet} />
+                )
+            })
+            ReactDOM.render(<div>{linkPanels}</div>, document.getElementById('root'))
+        }).catch(function(error) {
+            console.log(error)
+        }) 
         //window.open('http://www.google.com/search?q=' + this.state.query)
         event.preventDefault()
     }
