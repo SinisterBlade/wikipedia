@@ -8,6 +8,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var buttonStyle = {
+    border: "1px solid black",
+    height: "35px"
+};
+
+var inputStyle = {
+    height: "35px",
+    fontSize: "20px",
+};
+
 function getSearchData(query) {
     return new Promise(function (resolve, reject) {
         console.log('Searching');
@@ -44,9 +54,9 @@ function LinkPanel(props) {
 function RandomWiki(props) {
     return React.createElement(
         "button",
-        { onClick: function onClick() {
+        { style: buttonStyle, onClick: function onClick() {
                 return window.open('https://en.wikipedia.org/wiki/Special:Random');
-            }, className: "btn" },
+            } },
         props.text
     );
 }
@@ -94,11 +104,11 @@ var WikiForm = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "form",
-                { onSubmit: this.handleSubmit, className: "form-inline" },
-                React.createElement("input", { className: "form-control", type: "text", onChange: this.handleInput }),
+                { onSubmit: this.handleSubmit},
+                React.createElement("input", { style: inputStyle, type: "text", onChange: this.handleInput }),
                 React.createElement(
                     "button",
-                    { className: "btn", type: "submit", onClick: this.handleSubmit },
+                    { style: buttonStyle, type: "submit", onClick: this.handleSubmit },
                     "Search"
                 )
             );
@@ -110,9 +120,9 @@ var WikiForm = function (_React$Component) {
 
 var element = React.createElement(
     "div",
-    null,
-    React.createElement(RandomWiki, { text: "Click here for a random Wikipedia article" }),
-    React.createElement(WikiForm, null)
+    { className: "container" },
+    React.createElement(WikiForm, null),
+    React.createElement(RandomWiki, { text: "Click here for a random Wikipedia article" })
 );
 
 ReactDOM.render(element, document.getElementById('root'));

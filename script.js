@@ -1,3 +1,7 @@
+const buttonStyle = {
+    border: "1px solid black"
+}
+
 function getSearchData(query) {
     return new Promise(function (resolve, reject) {
         console.log('Searching')
@@ -27,7 +31,7 @@ function LinkPanel(props) {
 
 function RandomWiki(props) {
     return (
-        <button onClick={() => window.open('https://en.wikipedia.org/wiki/Special:Random')} className="btn">{props.text}</button>
+        <button style={buttonStyle} onClick={() => window.open('https://en.wikipedia.org/wiki/Special:Random')} >{props.text}</button>
     )
 }
 
@@ -59,18 +63,18 @@ class WikiForm extends React.Component {
     }
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="form-inline">
+            <form onSubmit={this.handleSubmit} className="form">
                 <input className="form-control" type="text" onChange={this.handleInput}></input>
-                <button className="btn" type="submit" onClick={this.handleSubmit}>Search</button>
+                <button style={buttonStyle} type="submit" onClick={this.handleSubmit}>Search</button>
             </form>
         )
     }
 }
 
 const element = (
-    <div>
-        <RandomWiki text="Click here for a random Wikipedia article" />
+    <div className="container">
         <WikiForm />
+        <RandomWiki text="Click here for a random Wikipedia article" />
     </div>
 )
 
