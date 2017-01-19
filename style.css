@@ -28,6 +28,7 @@ body {
 .panel > .panel-heading {
     background-image: none;
     background-color:#CA4CFF;
+    color: white;
 }
 
 .panel {
@@ -36,6 +37,7 @@ body {
 
 .jumbotron {
     background-color: #CA4CFF;
+    color: white;
 }
 
 a:link {
@@ -58,6 +60,7 @@ a:hover > .panel {
 a:hover > .panel > .panel-heading {
     background-image: none;
     background-color: #B400FF;
+    color: white;
 }
 a:active {
     text-decoration: none;
