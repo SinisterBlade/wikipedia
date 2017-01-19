@@ -5,37 +5,37 @@ body {
 .form-control {
     height: 40px;
     font-size: 17px;
-    border: 2px solid #66ee78;
+    border: 2px solid #CA4CFF;
 }
 
 .form-control:focus {
     outline: none;
     box-shadow: none;
-    border: 2px solid #ff746d;
+    border: 2px solid #65267F;
 }
 
 .btn {
     height: 40px;
     font-size: 17px;
     background-color: white;
-    border: 2px solid #66ee78;
+    border: 2px solid #CA4CFF;
 }
 
 .btn:hover {
-    border: 2px solid #ff746d;
+    border: 2px solid #65267F;
 }
 
 .panel > .panel-heading {
     background-image: none;
-    background-color:#66ee78;
+    background-color:#CA4CFF;
 }
 
 .panel {
-    border: 1px solid #66ee78;
+    border: 1px solid #CA4CFF;
 }
 
 .jumbotron {
-    background-color: #66ee78;
+    background-color: #CA4CFF;
 }
 
 a:link {
@@ -52,12 +52,12 @@ a:hover {
 }
 
 a:hover > .panel {
-    border: 1px solid #42E456;
+    border: 1px solid #B400FF;
 }
 
 a:hover > .panel > .panel-heading {
     background-image: none;
-    background-color: #42E456;
+    background-color: #B400FF;
 }
 a:active {
     text-decoration: none;
