@@ -42,8 +42,13 @@ function RandomWiki(props) {
         "div",
         null,
         React.createElement(
+            "label",
+            null,
+            "Otherwise..."
+        ),
+        React.createElement(
             "button",
-            { className: "btn", onClick: () => window.open('https://en.wikipedia.org/wiki/Special:Random') },
+            { className: "form-control btn", onClick: () => window.open('https://en.wikipedia.org/wiki/Special:Random') },
             props.text
         )
     );
@@ -70,7 +75,9 @@ class WikiForm extends React.Component {
                     "div",
                     { className: "container" },
                     React.createElement(WikiForm, null),
-                    React.createElement(RandomWiki, { text: "Random Article" }),
+                    React.createElement("hr", null),
+                    React.createElement(RandomWiki, { text: "Find me a random page" }),
+                    React.createElement("hr", null),
                     React.createElement(
                         "div",
                         { className: "link-panels" },
@@ -130,7 +137,8 @@ const element = React.createElement(
         "div",
         { className: "container" },
         React.createElement(WikiForm, null),
-        React.createElement(RandomWiki, { text: "Random Article" })
+        React.createElement("hr", null),
+        React.createElement(RandomWiki, { text: "Find me a random page" })
     )
 );
 

@@ -30,7 +30,8 @@ function LinkPanel(props) {
 function RandomWiki(props) {
     return (
         <div>
-            <button className="btn" onClick={() => window.open('https://en.wikipedia.org/wiki/Special:Random')} >{props.text}</button>
+            <label>Otherwise...</label>
+            <button className="form-control btn" onClick={() => window.open('https://en.wikipedia.org/wiki/Special:Random')} >{props.text}</button>
         </div>
     )
 }
@@ -56,7 +57,9 @@ class WikiForm extends React.Component {
                     <Header title="Wikipedia Viewer" />
                     <div className="container"> 
                         <WikiForm />
-                        <RandomWiki text="Random Article" />
+                        <hr />
+                        <RandomWiki text="Find me a random page" />
+                        <hr />
                         <div className="link-panels">
                             {linkPanels}
                         </div>
@@ -100,7 +103,8 @@ const element = (
         <Header title="Wikipedia Viewer" />
         <div className="container"> 
             <WikiForm />
-            <RandomWiki text="Random Article" />
+            <hr />
+            <RandomWiki text="Find me a random page" />
         </div>
     </div>
 )

@@ -1,3 +1,7 @@
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
 .form-control {
     height: 40px;
     font-size: 17px;
@@ -19,10 +23,6 @@
 
 .btn:hover {
     border: 2px solid #ff746d;
-}
-
-.link-panels {
-    margin-top: 70px;
 }
 
 .panel > .panel-heading {
@@ -62,4 +62,8 @@ a:hover > .panel > .panel-heading {
 a:active {
     text-decoration: none;
     color: black;
+}
+
+hr {
+    margin-top: 50px;
 }
