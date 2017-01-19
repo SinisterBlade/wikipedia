@@ -80,7 +80,7 @@ class WikiForm extends React.Component {
         return (
             <form onSubmit={this.handleSubmit} className="form">
                 <div className="input-group">
-                    <input className="form-control" placeholder="Search" type="text" onChange={this.handleInput}></input>
+                    <input className="form-control" placeholder="Search for a page on Wikipedia" type="text" onChange={this.handleInput}></input>
                     <span className="input-group-btn">
                         <button className="btn" type="submit" onClick={this.handleSubmit}>Search</button>
                     </span>

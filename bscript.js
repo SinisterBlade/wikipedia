@@ -102,7 +102,7 @@ class WikiForm extends React.Component {
             React.createElement(
                 "div",
                 { className: "input-group" },
-                React.createElement("input", { className: "form-control", placeholder: "Search", type: "text", onChange: this.handleInput }),
+                React.createElement("input", { className: "form-control", placeholder: "Search for a page on Wikipedia", type: "text", onChange: this.handleInput }),
                 React.createElement(
                     "span",
                     { className: "input-group-btn" },

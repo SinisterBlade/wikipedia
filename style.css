@@ -1,5 +1,5 @@
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Cabin', sans-serif;
 }
 
 .form-control {
@@ -52,12 +52,12 @@ a:hover {
 }
 
 a:hover > .panel {
-    border: 1px solid #ff746d;
+    border: 1px solid #42E456;
 }
 
 a:hover > .panel > .panel-heading {
     background-image: none;
-    background-color: #ff746d;
+    background-color: #42E456;
 }
 a:active {
     text-decoration: none;
