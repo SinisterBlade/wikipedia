@@ -1,7 +1,3 @@
-const buttonStyle = {
-    border: "1px solid black"
-}
-
 function getSearchData(query) {
     return new Promise(function (resolve, reject) {
         console.log('Searching')
@@ -22,8 +18,8 @@ function getSearchData(query) {
 
 function LinkPanel(props) {
     return (
-        <div className="panel panel-info" style={{cursor:"pointer"}} onClick={() => window.open('https://en.wikipedia.org/wiki/' + props.title)}>
-            <div className="panel-heading">{props.title}</div>
+        <div className="panel panel-default" style={{cursor:"pointer"}} onClick={() => window.open('https://en.wikipedia.org/wiki/' + props.title)}>
+            <div className="panel-heading"><h3 className="panel-title">{props.title}</h3></div>
             <div className="panel-body" dangerouslySetInnerHTML={{__html:props.body}}></div>
         </div>
     )
@@ -31,7 +27,9 @@ function LinkPanel(props) {
 
 function RandomWiki(props) {
     return (
-        <button style={buttonStyle} onClick={() => window.open('https://en.wikipedia.org/wiki/Special:Random')} >{props.text}</button>
+        <div>
+            <button className="btn" onClick={() => window.open('https://en.wikipedia.org/wiki/Special:Random')} >{props.text}</button>
+        </div>
     )
 }
 
@@ -48,10 +46,22 @@ class WikiForm extends React.Component {
             console.log('Success 2')
             let linkPanels = data.map(function(element, index) {
                 return (
-                    <LinkPanel key={index} title={element.title} body={element.snippet} />
+                    <LinkPanel key={index} title={element.title} body={element.snippet + "..."} />
                 )
             })
-            ReactDOM.render(<div>{linkPanels}</div>, document.getElementById('root'))
+            let element = (
+                <div>
+                    <Header title="Wikipedia Viewer" />
+                    <div className="container"> 
+                        <WikiForm />
+                        <RandomWiki text="Random Article" />
+                        <div className="link-panels">
+                            {linkPanels}
+                        </div>
+                    </div>
+                </div>
+            )
+            ReactDOM.render(element, document.getElementById('root'))
         }).catch(function(error) {
             console.log(error)
         }) 
@@ -64,17 +74,32 @@ class WikiForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="form">
-                <input className="form-control" type="text" onChange={this.handleInput}></input>
-                <button style={buttonStyle} type="submit" onClick={this.handleSubmit}>Search</button>
+                <div className="input-group">
+                    <input className="form-control" placeholder="Search" type="text" onChange={this.handleInput}></input>
+                    <span className="input-group-btn">
+                        <button className="btn" type="submit" onClick={this.handleSubmit}>Search</button>
+                    </span>
+                </div>
             </form>
         )
     }
 }
 
+function Header(props) {
+    return (
+        <div className="jumbotron text-center">
+            <h1>{props.title}</h1>
+        </div>
+    )
+}
+
 const element = (
-    <div className="container">
-        <WikiForm />
-        <RandomWiki text="Click here for a random Wikipedia article" />
+    <div>
+        <Header title="Wikipedia Viewer" />
+        <div className="container"> 
+            <WikiForm />
+            <RandomWiki text="Random Article" />
+        </div>
     </div>
 )
 
