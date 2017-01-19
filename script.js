@@ -18,10 +18,12 @@ function getSearchData(query) {
 
 function LinkPanel(props) {
     return (
-        <div className="panel panel-default" style={{cursor:"pointer"}} onClick={() => window.open('https://en.wikipedia.org/wiki/' + props.title)}>
-            <div className="panel-heading"><h3 className="panel-title">{props.title}</h3></div>
-            <div className="panel-body" dangerouslySetInnerHTML={{__html:props.body}}></div>
-        </div>
+        <a href={"https://en.wikipedia.org/wiki/" + props.title} target="_blank">
+            <div className="panel panel-default">
+                <div className="panel-heading"><h3 className="panel-title">{props.title}</h3></div>
+                <div className="panel-body" dangerouslySetInnerHTML={{__html:props.body}}></div>
+            </div>
+        </a>
     )
 }
 

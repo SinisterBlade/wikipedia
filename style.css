@@ -1,13 +1,65 @@
 .form-control {
     height: 40px;
     font-size: 17px;
+    border: 2px solid #66ee78;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid #ff746d;
 }
 
 .btn {
     height: 40px;
     font-size: 17px;
+    background-color: white;
+    border: 2px solid #66ee78;
+}
+
+.btn:hover {
+    border: 2px solid #ff746d;
 }
 
 .link-panels {
-    margin-top: 20px;
+    margin-top: 70px;
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color:#66ee78;
+}
+
+.panel {
+    border: 1px solid #66ee78;
+}
+
+.jumbotron {
+    background-color: #66ee78;
+}
+
+a:link {
+    text-decoration: none;
+    color: black;
+}
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover > .panel {
+    border: 1px solid #ff746d;
+}
+
+a:hover > .panel > .panel-heading {
+    background-image: none;
+    background-color: #ff746d;
+}
+a:active {
+    text-decoration: none;
+    color: black;
 }

@@ -18,18 +18,22 @@ function getSearchData(query) {
 
 function LinkPanel(props) {
     return React.createElement(
-        "div",
-        { className: "panel panel-default", style: { cursor: "pointer" }, onClick: () => window.open('https://en.wikipedia.org/wiki/' + props.title) },
+        "a",
+        { href: "https://en.wikipedia.org/wiki/" + props.title, target: "_blank" },
         React.createElement(
             "div",
-            { className: "panel-heading" },
+            { className: "panel panel-default" },
             React.createElement(
-                "h3",
-                { className: "panel-title" },
-                props.title
-            )
-        ),
-        React.createElement("div", { className: "panel-body", dangerouslySetInnerHTML: { __html: props.body } })
+                "div",
+                { className: "panel-heading" },
+                React.createElement(
+                    "h3",
+                    { className: "panel-title" },
+                    props.title
+                )
+            ),
+            React.createElement("div", { className: "panel-body", dangerouslySetInnerHTML: { __html: props.body } })
+        )
     );
 }
 

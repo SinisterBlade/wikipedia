@@ -1,0 +1,25 @@
+{
+  "name": "wikipedia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bscript.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SinisterBlade/wikipedia.git"
+  },
+  "author": "Rajat Mutha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SinisterBlade/wikipedia/issues"
+  },
+  "homepage": "https://github.com/SinisterBlade/wikipedia#readme",
+  "devDependencies": {
+    "babel-preset-react": "^6.16.0"
+  }
+}
