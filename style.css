@@ -22,7 +22,10 @@ body {
 }
 
 .btn:hover {
-    border: 2px solid #65267F;
+    /*border: 2px solid #65267F;*/
+    background-color: #CA4CFF;
+    color: white;
+    transition: 100ms all ease-in;
 }
 
 .panel > .panel-heading {
@@ -69,4 +72,25 @@ a:active {
 
 hr {
     margin-top: 50px;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+.searchmatch {
+    background: yellow;
 }

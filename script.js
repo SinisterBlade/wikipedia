@@ -1,3 +1,8 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
+
 function getSearchData(query) {
     return new Promise(function (resolve, reject) {
         console.log('Searching')
@@ -18,12 +23,14 @@ function getSearchData(query) {
 
 function LinkPanel(props) {
     return (
-        <a href={"https://en.wikipedia.org/wiki/" + props.title} target="_blank">
-            <div className="panel panel-default">
-                <div className="panel-heading"><h3 className="panel-title">{props.title}</h3></div>
-                <div className="panel-body" dangerouslySetInnerHTML={{__html:props.body}}></div>
-            </div>
-        </a>
+        <div>
+            <a href={"https://en.wikipedia.org/wiki/" + props.title} target="_blank">
+                <div className="panel panel-default">
+                    <div className="panel-heading"><h3 className="panel-title">{props.title}</h3></div>
+                    <div className="panel-body" dangerouslySetInnerHTML={{__html:props.body}}></div>
+                </div>
+            </a>
+        </div>
     )
 }
 
@@ -44,33 +51,17 @@ class WikiForm extends React.Component {
         this.handleInput = this.handleInput.bind(this)
     }
     handleSubmit(event) {
+        var currentObject = this
         getSearchData(this.state.query)
         .then(function(data) {
             console.log('Success 2')
-            let linkPanels = data.map(function(element, index) {
-                return (
-                    <LinkPanel key={index} title={element.title} body={element.snippet + "..."} />
-                )
+            currentObject.props.onClear()
+            data.forEach(function(element) {
+                currentObject.props.onNewData(element)
             })
-            let element = (
-                <div>
-                    <Header title="Wikipedia Viewer" />
-                    <div className="container"> 
-                        <WikiForm />
-                        <hr />
-                        <RandomWiki text="Find me a random page" />
-                        <hr />
-                        <div className="link-panels">
-                            {linkPanels}
-                        </div>
-                    </div>
-                </div>
-            )
-            ReactDOM.render(element, document.getElementById('root'))
         }).catch(function(error) {
             console.log(error)
         }) 
-        //window.open('http://www.google.com/search?q=' + this.state.query)
         event.preventDefault()
     }
     handleInput(event) {
@@ -98,14 +89,50 @@ function Header(props) {
     )
 }
 
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {links: []}
+        this.addLinks = this.addLinks.bind(this)
+        this.clearLinks = this.clearLinks.bind(this)
+    }
+    addLinks(linkdata) {
+        let newLinks = this.state.links.concat(linkdata)
+        this.setState({links: newLinks})
+    }
+    clearLinks() {
+        this.setState({links: []})
+    }
+    render() {
+        let linkPanels = this.state.links.map(function(element) {
+            return (
+                <LinkPanel key={element.title} title={element.title} body={element.snippet + "..."} />
+            )
+        })
+        let element = (
+            <div className="container">
+                <WikiForm onNewData={this.addLinks} onClear={this.clearLinks}/>
+                <hr />
+                <RandomWiki text="Find me a random page" />
+                <hr />
+                <div className="link-panels">
+                    <ReactCSSTransitionGroup
+                    transitionName="example"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
+                        {linkPanels}
+                    </ ReactCSSTransitionGroup>
+                </div>
+            </div>
+        )
+        return element;
+    }
+}
+
 const element = (
     <div>
         <Header title="Wikipedia Viewer" />
-        <div className="container"> 
-            <WikiForm />
-            <hr />
-            <RandomWiki text="Find me a random page" />
-        </div>
+        <App />
     </div>
 )
 
